@@ -78,7 +78,7 @@ const useValidator = (state, config) => {
         return errorsArray;
     }
 
-    const PasswordValidationComponent = ({validIcon}) => {
+    const PasswordValidationComponent = ({validIcon = 'ok'}) => {
         return (
             <div className={"password-validation"}>
                 <div className={"password-validation-wrapper"}>
