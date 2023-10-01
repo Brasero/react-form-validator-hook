@@ -1,70 +1,148 @@
-# Getting Started with Create React App
+# React-validator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
-## Available Scripts
+```bash
+ npm i react-form-validator-hook
+```
 
-In the project directory, you can run:
+## Usage
 
-### `npm start`
+```js
+import React, {useState} from 'react';
+import useValidator from 'react-form-validator-hook';
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+// Create a configuration object containing the rules for each field
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+const config = {
+  name: {
+    rules: {
+        required: {
+          message: 'Name is required',
+        },
+        minLength: {
+          value: 3,
+          message: 'Name must be at least 3 characters long',
+        },
+        maxLength: {
+          value: 20,
+          message: 'Name must be at most 20 characters long',
+        },
+    }
+  },
+  email: {
+    rules: {
+        required: {
+            message: 'Email is required',
+        },
+        email: {
+            message: 'Email is invalid',
+        }
+    }
+  },
+  password: {
+      rules: {
+          password: true,
+          required: {
+              message: "Password is required"
+          },
+          // For password validation you can use the following rules if you want to activate them you must set the value to an object containing an error message, otherwise if you want to deactivate them you must set the value to false
+          minLengthPassword: {
+              value: 8,
+              message: "Password must be at least 8 characters long"
+          },
+          number: {
+              message: "Password must contain at least one number"
+          },
+          upperCase: {
+              message: "Password must contain at least one uppercase letter"
+          },
+          lowerCase: {
+              message: "Password must contain at least one lowercase letter"
+          },
+          specialChar: false,
+          error: {
+              message: "Password must contain at least one number, one uppercase letter and one lowercase letter"
+          }
+      }
+  },
+  passwordConfirm: {
+      rules: {
+          required: {
+              message: "Password confirmation is required"
+          },
+          confirm: {
+              field: "password",
+              message: "Password confirmation does not match password"
+          }
+      }
+  }
+};
 
-### `npm test`
+const Form = () => {
+    
+    const initialValues = {
+        name: '',
+        email: '',
+        password: '',
+        passwordConfirm: ''
+    };
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    const {
+        values,
+        errors,
+        handleValueChange,
+        validateOnSubmit,
+        PasswordValidationComponent,
+        ErrorComponent,
+    } = useValidator(initialValues, config);
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        handleValueChange(name, value); 
+    };
+    
+    return (
+        <form onSubmit={validateOnSubmit}>
+            {...}
+            {
+                // Error component show the errors of the field if there are any
+            }
+            <ErrorComponent name="name" />
+            
+            {
+                // PasswordValidationComponent show the validation state of the password according to the rules defined in the configuration object
+            }
+            <PasswordValidationComponent />
+        </form>
+    )
+}
 
-### `npm run build`
+export default Form;
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> **Note:** The `PasswordValidationComponent` component is optional and is used to display the validation state of the password according to the rules defined in the configuration object.
+> 
+> The `ErrorComponent` component is optional and is used to display the errors of the field if there are any.
+> 
+> The `validateOnSubmit` function is used to validate the form when submitting.
+> 
+> The `handleValueChange` function is used to update the value of the field and validate it.
+> 
+> The `values` object contains the values of the fields.
+> 
+> The `errors` object contains the errors of the fields.
+> 
+> The `config` object contains the rules for each field.
+> 
+> The `initialValues` object contains the initial values of the fields.
+> 
+> The `name` attribute of the field must be the same as the key of the field in the `config` object.
+> 
+> The `message` attribute of the rule is used to display a custom error message if none passed no message will be displayed.
+> 
+> The `error` attribute of password rule is used to display a custom error message if password does not match the password rules set.
+> 
+> The `confirm` attribute of passwordConfirm rule is used to check if the password matches the password confirmation field he need a field prop in order to know the confirmed field name and compare their value.
+> 
+> 
