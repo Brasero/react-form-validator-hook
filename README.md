@@ -148,5 +148,24 @@ export default Form;
 > The `error` attribute of password rule is used to display a custom error message if password does not match the password rules set.
 > 
 > The `confirm` attribute of passwordConfirm rule is used to check if the password matches the password confirmation field he need a field prop in order to know the confirmed field name and compare their value.
-> 
-> 
+
+## Configuration parameters
+
+### Rules
+
+| Rule        | Description                                                                                                                                                   | Type                               | Default   |
+|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|-----------|
+| required    | Check if the field is empty                                                                                                                                   | { message: string }                | false     |
+| email       | Check if the field is email                                                                                                                                   | { message: string }                | false     |
+| minLength   | Check if the field is at least the minimum length                                                                                                             | { value: number, message: string } | undefined |
+| maxLength   | Check if the field is at most the maximum length                                                                                                              | { value: number, message: string } | undefined |
+| min         | Check if the field is at least the minimum value `input type number only`                                                                                     | { value: number, message: string } | undefined |
+| max         | Check if the field is at most the maximum value `input type number only`                                                                                      | { value: number, message: string } | undefined |
+| pattern     | Check if the field matches the regular expression                                                                                                             | { value: RegExp, message: string } | undefined |
+| password    | Define the field as password and activate the verification of password params (number, upperCase, lowerCase, specialChar & minLengthPassword) `password only` | boolean                            | undefined |
+| number      | Check if the field contains at least one number `password only`                                                                                               | { message: string }   \| false     | false     |
+| upperCase   | Check if the field contains at least one uppercase letter `password only`                                                                                     | { message: string }   \| false     | false     |
+| lowerCase   | Check if the field contains at least one lowercase letter `password only`                                                                                     | { message: string }   \| false     | false     |
+| specialChar | Check if the field contains at least one special character `password only`                                                                                    | { message: string }   \| false     | false     |
+| confirm     | Check if the field matches the field passed in the field prop (need to match the verified field name) `verification field only`                               | { field: string, message: string } | undefined |
+| error       | Display a custom error message if password does not match the password rules set `password only`                                                              | { message: string }                | undefined |
