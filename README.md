@@ -1,6 +1,6 @@
 # React-validator
 
-## Github repository
+## GitHub repository
 
 > [react-form-validator-hook](https://github.com/Brasero/react-form-validator-hook.git)
 

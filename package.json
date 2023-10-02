@@ -1,10 +1,11 @@
 {
   "name": "react-form-validator-hook",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "private": false,
   "main": "src/index.js",
   "type": "commonjs",
     "license": "MIT",
+  "repository": "https://github.com/Brasero/react-form-validator-hook.git",
   "author": {
     "name": "Ricci Brandon",
     "email": "brandonricci4@gmail.com"
@@ -24,7 +25,10 @@
     "form-validation-hook",
     "form-validation-react",
     "form-validation-react-hook",
-    "form-validation-react-hooks"
+    "form-validation-react-hooks",
+    "react validator",
+    "react form validator",
+    "form validation"
   ],
   "files": [
     "src/index.js",
